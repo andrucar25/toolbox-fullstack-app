@@ -16,13 +16,6 @@ export const getFormattedFiles = async (fileName) => {
     const fileNames = await getFiles()
     const allRows = await Promise.all(
       fileNames.files.map(async (filename) => await fetchAndParse(filename))
-      // fileNames.files.map(async (filename) => {
-      //   const rawData = await getFile(filename)
-      //   if (!rawData) return []
-
-      //   const parsed = parseCsv(rawData, filename)
-      //   return parsed
-      // })
     )
     const formattedFiles = allRows.flat()
 
@@ -65,6 +58,7 @@ const getFile = async (filename) => {
     }
 
     const textFile = await response.text()
+    console.log("🚀 ~ textFile:", textFile)
     return textFile
   } catch (error) {
     console.error(error)

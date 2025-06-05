@@ -1,7 +1,7 @@
 export const parseCsv = (text, filename) => {
   const lines = text.trim().split('\n')
 
-  // delete header
+  // Elimina la cabecera
   lines.shift()
 
   const parsed = []
@@ -11,16 +11,20 @@ export const parseCsv = (text, filename) => {
 
     if (parts.length !== 4) continue
 
-    const [file, textVal, number, hex] = parts
+    const [file, textVal, number, hex] = parts.map(p => p.trim())
 
-    const hasContent = textVal && number && hex
+    // Validations
+    const isSameFile = file === filename
+    const isValidText = typeof textVal === 'string' && textVal.length > 0
+    const isValidNumber = /^\d+$/.test(number)
+    const isValidHex = /^[a-fA-F0-9]{32}$/.test(hex)
 
-    if (file !== filename || !hasContent) continue
+    if (!isSameFile || !isValidText || !isValidNumber || !isValidHex) continue
 
     parsed.push({
       file,
       text: textVal,
-      number,
+      number: number,
       hex
     })
   }
