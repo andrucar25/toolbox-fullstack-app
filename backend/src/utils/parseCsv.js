@@ -24,7 +24,7 @@ export const parseCsv = (text, filename) => {
     parsed.push({
       file,
       text: textVal,
-      number: number,
+      number,
       hex
     })
   }

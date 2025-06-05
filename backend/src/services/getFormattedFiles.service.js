@@ -7,7 +7,6 @@ const { files } = EXTERNAL_ROUTES
 
 export const getFormattedFiles = async (fileName) => {
   try {
-
     if (fileName) {
       const parsed = await fetchAndParse(fileName)
       return parsed
@@ -58,7 +57,6 @@ const getFile = async (filename) => {
     }
 
     const textFile = await response.text()
-    console.log("🚀 ~ textFile:", textFile)
     return textFile
   } catch (error) {
     console.error(error)
