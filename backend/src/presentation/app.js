@@ -1,7 +1,9 @@
 import express from 'express'
 import registerFileRoutes from './routes/files.routes.js'
+import setupSwaggerDocs from '../documentation/swagger.js'
 
 const app = express()
+setupSwaggerDocs(app)
 
 app.use(express.json())
 

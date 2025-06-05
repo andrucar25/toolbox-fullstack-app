@@ -12,10 +12,13 @@ const formattedFilesController = async (req, res) => {
 
     const { fileName } = req.query
     const result = await getFormattedFiles(fileName)
+    // console.log("🚀 ~ e:", e)
 
     res.status(200).json({ data: result, errors: [] })
   } catch (err) {
-    res.status(500).json({ errors: err.message || 'Server internal error' })
+    const statusCode = err.status || 500
+    const message = err.message || 'Internal server error'
+    res.status(statusCode).json({ errors: [message] })
   }
 }
 

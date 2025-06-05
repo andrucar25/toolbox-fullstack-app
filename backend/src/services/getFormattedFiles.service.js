@@ -8,8 +8,14 @@ const { files } = EXTERNAL_ROUTES
 export const getFormattedFiles = async (fileName) => {
   try {
     if (fileName) {
-      const parsed = await fetchAndParse(fileName)
-      return parsed
+      const parsedFile = await fetchAndParse(fileName)
+      if (parsedFile.length === 0) {
+        const error = new Error(`File not found`)
+        error.status = 404
+        throw error
+      }
+
+      return parsedFile
     }
 
     const fileNames = await getFiles()
@@ -19,8 +25,8 @@ export const getFormattedFiles = async (fileName) => {
     const formattedFiles = allRows.flat()
 
     return formattedFiles
-  } catch (err) {
-    throw new Error(err.message)
+  } catch (error) {
+    throw error
   }
 }
 

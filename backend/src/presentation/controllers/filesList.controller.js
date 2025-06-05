@@ -5,7 +5,7 @@ const filesListController = async (req, res) => {
     const result = await getFiles()
     res.status(200).json({ data: result, errors: [] })
   } catch (err) {
-    res.status(500).json({ errors: err.message || 'Server internal error' })
+    res.status(500).json({ errors: err.message || 'Internal server error' })
   }
 }
 
