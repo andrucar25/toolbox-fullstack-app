@@ -14,5 +14,5 @@ const filesSlice = createSlice({
   }
 });
 
-export const { setFiles, setLoading } = filesSlice.actions;
+export const { setLoading } = filesSlice.actions;
 export default filesSlice.reducer;

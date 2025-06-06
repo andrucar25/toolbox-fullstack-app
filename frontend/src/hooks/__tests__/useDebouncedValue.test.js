@@ -1,33 +1,61 @@
-// src/hooks/__tests__/useDebouncedValue.test.js
-const { renderHook, act } = require('@testing-library/react-hooks');
-const useDebouncedValue = require('../useDebouncedValue').default;
+import { renderHook, act } from '@testing-library/react';
+import useDebouncedValue from '../useDebouncedValue';
 
 jest.useFakeTimers();
 
 describe('useDebouncedValue', () => {
-  it('should return the initial value immediately', () => {
-    const { result } = renderHook(() => useDebouncedValue('hello', 500));
-    expect(result.current).toBe('hello');
+  test('should return the initial value immediately', () => {
+    const { result } = renderHook(() => useDebouncedValue('initial value', 500));
+    expect(result.current).toBe('initial value');
   });
 
-  it('should debounce updates to the value', () => {
+  test('should update the value after the delay', () => {
     const { result, rerender } = renderHook(
       ({ value, delay }) => useDebouncedValue(value, delay),
       {
-        initialProps: { value: 'a', delay: 500 },
+        initialProps: { value: 'A', delay: 500 },
       }
     );
 
-    expect(result.current).toBe('a');
+    rerender({ value: 'B', delay: 500 });
 
-    rerender({ value: 'b', delay: 500 });
-
-    expect(result.current).toBe('a');
+    // Before the timeout
+    expect(result.current).toBe('A');
 
     act(() => {
       jest.advanceTimersByTime(500);
     });
 
-    expect(result.current).toBe('b');
+    expect(result.current).toBe('B');
+  });
+
+  test('should reset the timer if the value changes quickly', () => {
+    const { result, rerender } = renderHook(
+      ({ value, delay }) => useDebouncedValue(value, delay),
+      {
+        initialProps: { value: 'A', delay: 500 },
+      }
+    );
+
+    rerender({ value: 'B', delay: 500 });
+    act(() => {
+      jest.advanceTimersByTime(300);
+    });
+
+    // Change again before the 500ms have passed
+    rerender({ value: 'C', delay: 500 });
+    act(() => {
+      jest.advanceTimersByTime(300);
+    });
+
+    // Value should still be 'A'
+    expect(result.current).toBe('A');
+
+    // Advance remaining time of the second delay
+    act(() => {
+      jest.advanceTimersByTime(200);
+    });
+
+    expect(result.current).toBe('C');
   });
 });
