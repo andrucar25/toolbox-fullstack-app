@@ -12,7 +12,6 @@ const formattedFilesController = async (req, res) => {
 
     const { fileName } = req.query
     const result = await getFormattedFiles(fileName)
-    // console.log("🚀 ~ e:", e)
 
     res.status(200).json({ data: result, errors: [] })
   } catch (err) {
