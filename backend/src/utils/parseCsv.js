@@ -1,15 +1,25 @@
+/**
+ * Parses a CSV file's content and returns validated rows matching the expected format.
+ * 
+ * @param {string} text - Raw CSV text content.
+ * @param {string} filename - Expected filename to match in each row.
+ * @returns {Array<Object>} - Cleaned and validated file entries.
+ */
 export const parseCsv = (text, filename) => {
   const lines = text.trim().split('\n')
 
-  // Elimina la cabecera
+  // Delete header
   lines.shift()
 
-  const parsed = []
+  const parsedRows = []
 
   for (const line of lines) {
     const parts = line.split(',')
 
-    if (parts.length !== 4) continue
+    // Ensure line has exactly 4 expected columns
+    if (parts.length !== 4) {
+      continue
+    }
 
     const [file, textVal, number, hex] = parts.map(p => p.trim())
 
@@ -19,9 +29,12 @@ export const parseCsv = (text, filename) => {
     const isValidNumber = /^\d+$/.test(number)
     const isValidHex = /^[a-fA-F0-9]{32}$/.test(hex)
 
-    if (!isSameFile || !isValidText || !isValidNumber || !isValidHex) continue
+    // Skip invalid rows or malformed or mismatched CSVs
+    if (!isSameFile || !isValidText || !isValidNumber || !isValidHex) {
+      continue
+    }
 
-    parsed.push({
+    parsedRows.push({
       file,
       text: textVal,
       number,
@@ -29,5 +42,5 @@ export const parseCsv = (text, filename) => {
     })
   }
 
-  return parsed
+  return parsedRows
 }

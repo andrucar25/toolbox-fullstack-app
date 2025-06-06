@@ -5,10 +5,17 @@ import { parseCsv } from '../utils/parseCsv.js'
 
 const { files } = EXTERNAL_ROUTES
 
+/**
+ * Get formatted files from external API.
+ * If fileName exists, then get the files by fileName.
+ * @param {string} fileName - The filename to search.
+ * @returns {Arrray} Array with the response of formatted files.
+ * @throws {Error} Error if something goes wrong.
+ */
 export const getFormattedFiles = async (fileName) => {
   try {
     if (fileName) {
-      const parsedFile = await fetchAndParse(fileName)
+      const parsedFile = await getParsedFiles(fileName)
       if (parsedFile.length === 0) {
         const error = new Error(`File not found`)
         error.status = 404
@@ -20,7 +27,7 @@ export const getFormattedFiles = async (fileName) => {
 
     const fileNames = await getFiles()
     const allRows = await Promise.all(
-      fileNames.files.map(async (filename) => await fetchAndParse(filename))
+      fileNames.files.map(async (filename) => await getParsedFiles(filename))
     )
     const formattedFiles = allRows.flat()
 
@@ -30,6 +37,11 @@ export const getFormattedFiles = async (fileName) => {
   }
 }
 
+/**
+ * Get all files from external API.
+ *  @returns {Arrray} Array with fileNames.
+ * @throws {Error} Error if something goes wrong.
+ */
 export const getFiles = async () => {
   try {
     const response = await fetch(`${EXTERNAL_BASE_URL}/${files}`, {
@@ -50,6 +62,12 @@ export const getFiles = async () => {
   }
 }
 
+/**
+ * Get all files from a filename in the external API.
+ * @param {string} filename - The filename to search.
+ * @returns {Promise<string|null>} Text content of the file, or null if not found.
+ * @throws {Error} Error if something goes wrong.
+ */
 const getFile = async (filename) => {
   try {
     const response = await fetch(`${EXTERNAL_BASE_URL}/${EXTERNAL_ROUTES.fileName}/${filename}`, {
@@ -70,7 +88,14 @@ const getFile = async (filename) => {
   }
 }
 
-const fetchAndParse = async (filename) => {
+/**
+ * Get a file by filename from the external API and parses its CSV content.
+ * 
+ * @param {string} filename - Name of the file to fetch and parse.
+ * @returns {Promise<Array<Object>>} Parsed rows from the CSV file.
+ * Returns an empty array if the file is not found or is empty.
+ */
+const getParsedFiles = async (filename) => {
   const rawData = await getFile(filename)
   if (!rawData) return []
 
