@@ -5,5 +5,14 @@ services:
       dockerfile: Dockerfile
     container_name: toolbox-backend-app
     ports:
+      - "4000:4000"
+    restart: unless-stopped
+
+  frontend:
+    build: 
+      context: ./frontend
+      dockerfile: Dockerfile
+    container_name: toolbox-frontend-app
+    ports:
       - "3000:3000"
     restart: unless-stopped

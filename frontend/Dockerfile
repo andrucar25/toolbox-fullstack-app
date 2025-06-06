@@ -1,8 +1,8 @@
-# Use Node.js 14 in Alpine 
-FROM node:14-alpine
+# Use Node.js 16 in Alpine 
+FROM node:16-alpine
 
 # Work directory inside container
-WORKDIR /usr/src/app
+WORKDIR /app
 
 #Copy necesary files to install dependencies
 COPY package*.json ./
@@ -14,7 +14,7 @@ RUN npm install
 COPY . .
 
 # Expose port 3000
-EXPOSE 4000
+EXPOSE 3000
 
 # Initialize app
 CMD ["npm", "start"]
