@@ -3,7 +3,7 @@ import { getFormattedFiles } from '../../services/getFormattedFiles.service.js'
 /**
  * Get request for formatted files data.
  * Validates allowed query params and fetches data accordingly.
- * 
+ *
  * @param req.fileName - Query Param.
  * @returns {Promise<void>} Sends JSON response with data or error.
  */

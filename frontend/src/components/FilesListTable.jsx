@@ -4,7 +4,7 @@ import { SkeletonRow } from '../components/SkeletonRow';
 export const FilesListTable = ({ files, loading }) => {
   return (
     <div style={{ width: '100%', maxWidth: '400px' }}>
-      <Table striped bordered hover className="text-start">
+      <Table striped bordered hover className="text-center">
         <thead>
           <tr>
             <th>File Name</th>

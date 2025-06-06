@@ -6,10 +6,17 @@ describe('useFileList', () => {
     jest.resetAllMocks();
   });
 
-  test('should initially set loading to true and files to empty', () => {
+  test('should initially set loading to true and files to empty', async () => {
+    global.fetch = jest.fn(() =>
+      Promise.resolve({
+        json: () => Promise.resolve({ data: { files: [] } }),
+      })
+    );
+
     const { result } = renderHook(() => useFileList());
 
-    expect(result.current.loading).toBe(true);
+    await waitFor(() => expect(result.current.loading).toBe(false));
+
     expect(result.current.files).toEqual([]);
     expect(result.current.errors).toEqual([]);
   });

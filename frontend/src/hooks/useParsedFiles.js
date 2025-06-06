@@ -3,6 +3,13 @@ import { useDispatch } from 'react-redux';
 import { setLoading } from '../redux/files/filesSlice';
 import { API_BASE_URL } from '../constants/api.constants';
 
+/**
+ * Custom hook to get parsed files data.
+ * Dispatches loading state via Redux and returns formatted data and errors.
+ * 
+ * @param {string} fileName - Optional file name to filter the request.
+ * @returns {{ data: Array, errors: Array<string> }} Parsed data and error messages.
+ */
 export default function useParsedFiles(fileName = '') {
   const dispatch = useDispatch();
   const [data, setData] = useState([]);

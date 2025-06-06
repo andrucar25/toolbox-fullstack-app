@@ -1,6 +1,6 @@
 /**
  * Parses a CSV file's content and returns validated rows matching the expected format.
- * 
+ *
  * @param {string} text - Raw CSV text content.
  * @param {string} filename - Expected filename to match in each row.
  * @returns {Array<Object>} - Cleaned and validated file entries.

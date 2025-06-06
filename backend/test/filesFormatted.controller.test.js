@@ -13,13 +13,13 @@ describe('When route /files/data is requested', () => {
     expect(response).to.have.status(200)
     expect(response.body.data).to.be.an('array')
   })
-    it('should return a list of all parsed files', async () => {
+  it('should return a list of all parsed files', async () => {
     const response = await chai.request(app).get('/files/data')
 
     expect(response).to.have.status(200)
     expect(response.body.data).to.be.an('array')
   })
-    it('should return 404 if file is not found', async () => {
+  it('should return 404 if file is not found', async () => {
     const response = await chai.request(app).get('/files/data?fileName=testexample.csv')
 
     expect(response).to.have.status(404)
@@ -34,4 +34,3 @@ describe('When route /files/data is requested', () => {
     expect(response.body).to.not.have.property('data')
   })
 })
-

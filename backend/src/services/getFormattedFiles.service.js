@@ -17,7 +17,7 @@ export const getFormattedFiles = async (fileName) => {
     if (fileName) {
       const parsedFile = await getParsedFiles(fileName)
       if (parsedFile.length === 0) {
-        const error = new Error(`File not found`)
+        const error = new Error('File not found')
         error.status = 404
         throw error
       }
@@ -90,7 +90,7 @@ const getFile = async (filename) => {
 
 /**
  * Get a file by filename from the external API and parses its CSV content.
- * 
+ *
  * @param {string} filename - Name of the file to fetch and parse.
  * @returns {Promise<Array<Object>>} Parsed rows from the CSV file.
  * Returns an empty array if the file is not found or is empty.

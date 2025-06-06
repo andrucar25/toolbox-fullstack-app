@@ -15,5 +15,3 @@ describe('When route /files/list is requested', () => {
     expect(response.body.errors.length).to.equal(0)
   })
 })
-
-

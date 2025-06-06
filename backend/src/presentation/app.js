@@ -3,7 +3,6 @@ import cors from 'cors'
 import registerFileRoutes from './routes/files.routes.js'
 import setupSwaggerDocs from '../documentation/swagger.js'
 
-
 const app = express()
 setupSwaggerDocs(app)
 

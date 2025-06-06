@@ -18,7 +18,7 @@ export default function Home() {
       <SearchBar onSearch={setSearchTerm} />
       <hr />
       {errors.length > 0 ? (
-        <Alert variant="danger">{errors.join(', ')}</Alert>
+        <Alert variant="danger" className="text-center">{errors.join(', ')}</Alert>
       ) : (
         <ParsedFilesTable data={data} loading={loading} />
       )}
