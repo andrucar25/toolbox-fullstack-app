@@ -1,6 +1,7 @@
 # Toolbox Full Stack Challenge
 This repository contains the solution for the Full Stack Challenge.
-It includes a Node.js/Express API that processes external CSV data and a React-based client that consumes and displays the parsed content:
+It includes a Node.js/Express API that processes external CSV data and a React-based client that consumes and displays the parsed content.
+In the main view, you can check all the parsed content of CSVs. In the Files List view, you can check the available files from the external API.
 
 ## Tech Stack Backend
 - **Javascript**
@@ -22,11 +23,12 @@ It includes a Node.js/Express API that processes external CSV data and a React-b
 
 ## Local Deployment with Docker Compose
 
-1. Clone the repository
+1. Clone the repository and get into the folder of the proyect
 ```bash
 git clone https://github.com/andrucar25/toolbox-fullstack-app
+cd toolbox-fullstack-app
 ```
-2. Run the application
+2. Run the application with docker compose
 ```bash
 docker compose up --build
 ```
@@ -36,9 +38,10 @@ http://localhost:3000
 
 ## Manual Local Deployment without Docker Compose
 
-1. Clone the repository 
+1. Clone the repository and get into the folder of the proyect
 ```bash
 git clone https://github.com/andrucar25/toolbox-fullstack-app
+cd toolbox-fullstack-app
 ```
 2. Install dependencies inside backend and run
 ```bash
@@ -58,14 +61,18 @@ http://localhost:3000
 
 ## Try testing the application
 ### Backend
+Ensure the dependencies of the proyect are installed before running the test
 ```bash
 cd backend
+npm install
 npm test
 ```
 
 ### Frontend
+Ensure the dependencies of the proyect are installed before running the test
 ```bash
 cd frontend
+npm install
 npm test
 ```
 
