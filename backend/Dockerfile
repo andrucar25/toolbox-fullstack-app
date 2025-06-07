@@ -1,4 +1,4 @@
-# Use Node.js 14 in Alpine 
+# Node.js 14 in Alpine 
 FROM node:14-alpine
 
 # Work directory inside container

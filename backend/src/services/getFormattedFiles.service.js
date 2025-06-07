@@ -33,7 +33,7 @@ export const getFormattedFiles = async (fileName) => {
 
     return formattedFiles
   } catch (error) {
-    throw error
+    throw new Error(`Failed to fetch file list from external API: ${error.message}`)
   }
 }
 
